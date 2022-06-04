@@ -1147,6 +1147,7 @@ PREFERRED_DATABASES: List[str] = [
     "Presto",
     "MySQL",
     "SQLite",
+    "Google BigQuery"
     # etc.
 ]
 # When adding a new database we try to connect to it. Depending on which parameters are
