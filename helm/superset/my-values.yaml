@@ -116,17 +116,9 @@ extraVolumeMounts: []
 
 # A dictionary of overrides to append at the end of superset_config.py - the name does not matter
 # WARNING: the order is not guaranteed
-configOverrides: {}
-  # my_override: |
-  #   # bigquery
-  #   PREFERRED_DATABASES = [
-  #     "PostgreSQL",
-  #     "Presto",
-  #     "MySQL",
-  #     "SQLite",
-  #     "Google BigQuery"
-  #     # etc.
-  #   ]
+configOverrides:
+  secret: |
+    SECRET_KEY = '/B4jEtfA7PjlRvtZzfmJRUXuzN1xXeJy65DNluSjEfX9L6MDwWsCeQtz'
   #  extend_timeout: |
   #    # Extend timeout to allow long running queries.
   #    SUPERSET_WEBSERVER_TIMEOUT = ...
@@ -193,13 +185,13 @@ service:
 
 ingress:
   enabled: false
-  # ingressClassName: nginx
-  annotations: {}
-    # kubernetes.io/tls-acme: "true"
+  ingressClassName: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
     ## Extend timeout to allow long running queries.
-    # nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
-    # nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-    # nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
   path: /
   pathType: ImplementationSpecific
   hosts:
@@ -359,11 +351,11 @@ init:
   loadExamples: false
   createAdmin: true
   adminUser:
-    username: admin
-    firstname: Superset
-    lastname: Admin
-    email: admin@superset.com
-    password: admin
+    username: tadams
+    firstname: Thomas
+    lastname: Adams
+    email: thomas@engagelocalmedia.com
+    password: 9^OI!BX5QQRn
   initContainers:
     - name: wait-for-postgres
       image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
